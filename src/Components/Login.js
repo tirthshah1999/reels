@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -19,6 +19,7 @@ import img2 from '../Assets/img2.jpg';
 import img3 from '../Assets/img3.jpg';
 import img4 from '../Assets/img4.jpg';
 import img5 from '../Assets/img5.jpg';
+import { AuthContext } from '../Context/Auth';
 
 function Login() {
     const useStyles = makeStyles({
@@ -36,7 +37,8 @@ function Login() {
     })
 
     const classes = useStyles();
-    
+    const store = useContext(AuthContext);
+    console.log(store);
     return (
         <div className="loginWrapper">
             <div className="img-card" style={{backgroundImage:'url('+bg+')',backgroundSize:'cover'}}>
