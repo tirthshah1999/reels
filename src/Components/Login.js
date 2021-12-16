@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useState, useContext} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -8,7 +8,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,Image } from 'p
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import { makeStyles } from '@mui/styles';
 import Alert from '@mui/material/Alert';
-import './Login.css'
+import './Login.css';
 import insta from '../Assets/Instagram.JPG'
 import TextField from '@mui/material/TextField';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -20,6 +20,7 @@ import img3 from '../Assets/img3.jpg';
 import img4 from '../Assets/img4.jpg';
 import img5 from '../Assets/img5.jpg';
 import { AuthContext } from '../Context/Auth';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
     const useStyles = makeStyles({
@@ -39,6 +40,30 @@ function Login() {
     const classes = useStyles();
     const store = useContext(AuthContext);
     console.log(store);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+    const {login} = useContext(AuthContext);
+
+    const handleLogin = async() => {
+        try {
+            setError("");
+            setLoading(true);
+            let res = await login(email, password);
+            setLoading(false);
+            history.push('/');
+        } catch (err) {
+            setError("Credentials doesn't match");
+            setLoading(false);
+            setTimeout(() => {
+                setError("");
+            }, 2000)
+        }
+    }
+
     return (
         <div className="loginWrapper">
             <div className="img-card" style={{backgroundImage:'url('+bg+')',backgroundSize:'cover'}}>
@@ -70,15 +95,15 @@ function Login() {
                       <img src={insta} alt="" />
                   </div>
                   <CardContent>
-                      {true && <Alert severity="error">Error</Alert>}
-                      <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth={true} margin="dense" size="small" />
-                      <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth={true} margin="dense" size="small" />
+                      {error !== '' && <Alert severity="error">{error}</Alert>}
+                      <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth={true} margin="dense" size="small" value={email} onChange={(e) => setEmail(e.target.value)} />
+                      <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth={true} margin="dense" size="small" value={password} onChange={(e) => setPassword(e.target.value)} />
                       <Typography className={classes.text2} color="primary" variant="subtitle1">
                           Forget Password ?
                       </Typography>
                   </CardContent>
                   <CardActions>
-                      <Button color="primary" fullWidth={true} variant="contained">
+                      <Button color="primary" fullWidth={true} variant="contained" onClick={handleLogin} disabled={loading}>
                       Log in
                       </Button>
                   </CardActions>
