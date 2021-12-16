@@ -145,7 +145,7 @@ export default function Signup() {
               </Button>
             </CardContent>
             <CardActions>
-              <Button color="primary" fullWidth={true} variant="contained" onClick={handleSubmit}>
+              <Button color="primary" fullWidth={true} variant="contained" onClick={handleSubmit} disabled={loading}>
                 Sign up
               </Button>
             </CardActions>
