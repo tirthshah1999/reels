@@ -2,6 +2,8 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { AuthProvider } from "./Context/Auth";
+import Feed from "./Components/Feed";
+import PrivateRouting from "./Components/PrivateRouting";
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
         <Switch>
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
+          <PrivateRouting path="/" component={Feed}/>
         </Switch>
       </AuthProvider>
     </Router>
