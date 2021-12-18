@@ -5,7 +5,12 @@ import 'firebase/compat/firestore';    // to store values (key-value format)
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    // You firebase config details goes here...
+  apiKey: "AIzaSyAYvhOVEN_y0hNed2FdE2Fb4ZP05AzIOdo",
+  authDomain: "reels-project-c3daf.firebaseapp.com",
+  projectId: "reels-project-c3daf",
+  storageBucket: "reels-project-c3daf.appspot.com",
+  messagingSenderId: "664386584883",
+  appId: "1:664386584883:web:bcf96bda9e76a3dab5fe46"
 };
 
 // Initialize Firebase
@@ -15,7 +20,8 @@ export const auth = firebase.auth();
 
 const firestore = firebase.firestore();
 export const database = {
-  users: firestore.collection("users"),   // name of database will be users
+  users: firestore.collection("users"),   // name of database will be user
+  posts : firestore.collection("posts"),
   getTimeStamp: firebase.firestore.FieldValue.serverTimestamp
 }
 

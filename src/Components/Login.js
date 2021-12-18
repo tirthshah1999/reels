@@ -11,7 +11,6 @@ import Alert from '@mui/material/Alert';
 import './Login.css';
 import insta from '../Assets/Instagram.JPG'
 import TextField from '@mui/material/TextField';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {Link} from  'react-router-dom';
 import bg from '../Assets/insta.png'
 import img1 from '../Assets/img1.jpg';
