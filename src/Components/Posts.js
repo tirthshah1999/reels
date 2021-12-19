@@ -4,6 +4,7 @@ import { database } from '../firebase';
 import Video from './Video';
 import './Posts.css';
 import Avatar from '@mui/material/Avatar';
+import Like from './Like';
 
 function Posts({userData}) {
 
@@ -37,6 +38,7 @@ function Posts({userData}) {
                                         <Avatar src={post.userProfile} />
                                         <h4>{post.userName}</h4>
                                     </div>
+                                    <Like userData={userData} postData={post} />
                                 </div>
                             </React.Fragment>
                         ))
