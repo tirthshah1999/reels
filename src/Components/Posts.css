@@ -44,3 +44,43 @@
     cursor: pointer;
     color: white;
 }
+
+.chat{
+    position: absolute;
+    bottom: 7rem;
+    left: 17rem;
+    color: #fff;
+}
+
+.modal-container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.video-modal{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-modal video{
+    height: 85vh;
+}
+
+.comment-modal{
+    width: 50%;
+    height: 100%;
+}
+
+.unlike-style{
+    color: black;
+    cursor: pointer;
+}
+
+.card1{
+    height: 70vh;
+    padding: 0.2rem;
+}
