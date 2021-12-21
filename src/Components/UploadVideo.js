@@ -83,20 +83,22 @@ function UploadVideo(props) {
     }
 
     return (
-        <>
-          {
-            error !== "" ? <Alert severity="error">{error}</Alert> :   
-            <div>
-                <input type="file" accept="video/*" id="upload-input" style={{display: 'none'}} onChange={(e) => handleFiles(e.target.files[0])} />
-                <label htmlFor="upload-input">
-                    <Button variant="outlined" color="secondary" component="span" disabled={loading}>
-                       <MovieIcon/> &nbsp; Upload Video
-                    </Button>
-                </label>
-               {loading && <LinearProgress color="secondary" />}
-            </div>
-          }
-        </>
+        <div style={{marginTop:'5rem',marginBottom:'1rem'}}>
+            <>
+            {
+                error !== "" ? <Alert severity="error">{error}</Alert> :   
+                <div>
+                    <input type="file" accept="video/*" id="upload-input" style={{display: 'none'}} onChange={(e) => handleFiles(e.target.files[0])} />
+                    <label htmlFor="upload-input">
+                        <Button variant="outlined" color="secondary" component="span" disabled={loading}>
+                        <MovieIcon/> &nbsp; Upload Video
+                        </Button>
+                    </label>
+                {loading && <LinearProgress color="secondary" />}
+                </div>
+            }
+            </>
+        </div>
     )
 }
 
