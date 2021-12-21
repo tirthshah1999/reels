@@ -77,8 +77,6 @@ function UploadVideo(props) {
                     setLoading(false);
                 })
             })
-
-            // setLoading(false);
         }
     }
 

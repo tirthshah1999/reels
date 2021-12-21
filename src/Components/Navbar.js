@@ -97,7 +97,7 @@ export default function Navbar({userData}) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        <MenuItem onClick={handleProfile}><AccountCircleIcon/><p>&nbsp;&nbsp;</p>Profile</MenuItem>
+      <MenuItem onClick={handleProfile}><AccountCircleIcon/><p>&nbsp;&nbsp;</p>Profile</MenuItem>
       <MenuItem onClick={handleLogout}><ExitToAppIcon/><p>&nbsp;&nbsp;</p>Logout</MenuItem>
     </Menu>
   );
