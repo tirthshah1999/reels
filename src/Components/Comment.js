@@ -22,8 +22,8 @@ function Comment({postData}) {
                 comments==null? <CircularProgress/> :
                 <>
                 {
-                    comments.map((comment) => (
-                        <div style={{display:'flex'}}>
+                    comments.map((comment, index) => (
+                        <div key={index} style={{display:'flex'}}>
                             <Avatar src={comment.userProfile}/>
                             <p>&nbsp;&nbsp; <span style={{fontWeight:'bold'}}>{comment.userName}</span>&nbsp;&nbsp; {comment.text}</p>
                         </div>

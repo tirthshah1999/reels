@@ -17,12 +17,12 @@ function Posts({ userData }) {
   const [posts, setPosts] = useState(null);
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (id) => {
+    setOpen(id);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(null);
   };
 
   // Getting all the videos in desc order (latest one at top)
@@ -41,6 +41,29 @@ function Posts({ userData }) {
     return unsub;
   }, []);
 
+  // Observer API
+  const callback = (entries) => {
+    entries.forEach((entry)=>{
+        let ele = entry.target.childNodes[0];
+        ele.play().then(()=>{
+            if(!ele.paused && !entry.isIntersecting){
+                ele.pause();
+            }
+        })
+    })
+  }
+
+  let observer = new IntersectionObserver(callback, {threshold:0.6});
+  useEffect(()=>{
+      const elements = document.querySelectorAll(".videos");
+      elements.forEach((element)=>{
+          observer.observe(element);
+      })
+      return ()=>{
+          observer.disconnect();
+      }
+  },[posts])
+
   return (
     <div>
       {posts == null || userData == null ? (
@@ -56,9 +79,9 @@ function Posts({ userData }) {
                   <h4>{post.userName}</h4>
                 </div>
                 <Like userData={userData} postData={post} />
-                <ChatBubbleIcon className="chat" onClick={handleClickOpen} />
+                <ChatBubbleIcon className="chat" onClick={() => handleClickOpen(post.postId)} />
                 <Dialog
-                  open={open}
+                  open={open==post.postId}
                   onClose={handleClose}
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
@@ -67,7 +90,7 @@ function Posts({ userData }) {
                 >
                   <div className="modal-container">
                     <div className="video-modal">
-                      <video autoPlay="true" muted="muted" controls>
+                      <video autoPlay={true} muted="muted" controls>
                         <source src={post.postUrl} />
                       </video>
                     </div>

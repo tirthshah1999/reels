@@ -4,25 +4,23 @@ import { database } from "../firebase";
 import { CircularProgress } from "@mui/material";
 import Navbar from "./Navbar";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import Like from "./Like";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import Dialog from "@mui/material/Dialog";
 import Card from "@mui/material/Card";
 import ShowLike from "./ShowLike";
 import AddComment from "./AddComment";
 import Comment from "./Comment";
+import './Profile.css';
 
 function Profile() {
   const { id } = useParams();
-  const [userData, setUserdata] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState(null);
   const [open, setOpen] = useState(null);
   
   // It snapshots users current state   
   useEffect(() => {
     database.users.doc(id).onSnapshot((snap) => {
-      setUserdata(snap.data());
+      setUserData(snap.data());
     });
   }, [id]);
 
@@ -32,20 +30,19 @@ function Profile() {
       let postArr = [];
       for (let i = 0; i < userData.postIds.length; i++) {
           let postData = await database.posts.doc(userData.postIds[i]).get();
-          postArr.push({ ...postData.data(), postId: postData.id });
+          postArr.push({...postData.data(), postId: postData.id});
       }
 
       setPosts(postArr);
-      console.log(postArr);
     }
-  }, [userData]);
+  });
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (id) => {
+    setOpen(id);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(null);
   };
 
   return (
@@ -68,35 +65,26 @@ function Profile() {
                 </Typography>
               </div>
             </div>
-            <div className="video-container">
+  
               <hr style={{ marginTop: "3rem", marginBottom: "3rem" }} />
               <div className="profile-videos">
               {posts.map((post, index) => (
                 <React.Fragment key={index}>
                   <div className="videos">
-                    <video muted="muted">
+                    <video muted="muted" onClick={() => handleClickOpen(post.postId)}>
                       <source src={post.postUrl} />
                     </video>
-                    <div className="fa">
-                      <Avatar src={post.userProfile} />
-                      <h4>{post.userName}</h4>
-                    </div>
-                    <Like userData={userData} postData={post} />
-                    <ChatBubbleIcon
-                      className="chat"
-                      onClick={handleClickOpen}
-                    />
                     <Dialog
-                      open={open}
+                      open={open==post.postId}
                       onClose={handleClose}
                       aria-labelledby="alert-dialog-title"
                       aria-describedby="alert-dialog-description"
                       fullWidth={true}
-                      maxWidth="lg"
+                      maxWidth="md"
                     >
                       <div className="modal-container">
                         <div className="video-modal">
-                          <video autoPlay="true" muted="muted" controls>
+                          <video autoPlay={true} muted="muted" controls>
                             <source src={post.postUrl} />
                           </video>
                         </div>
@@ -110,7 +98,7 @@ function Profile() {
                                 ? "Liked by nobody"
                                 : `Liked by ${post.likes.length} users`}
                             </Typography>
-                            <div>
+                            <div style={{display:'flex'}}>
                               <ShowLike
                                 postData={post}
                                 userData={userData}
@@ -139,7 +127,6 @@ function Profile() {
               ))}
               </div>
             </div>
-          </div>
         </>
       )}
     </>
