@@ -96,10 +96,7 @@ function Login() {
                   <CardContent>
                       {error !== '' && <Alert severity="error">{error}</Alert>}
                       <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth={true} margin="dense" size="small" value={email} onChange={(e) => setEmail(e.target.value)} />
-                      <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth={true} margin="dense" size="small" value={password} onChange={(e) => setPassword(e.target.value)} />
-                      <Typography className={classes.text2} color="primary" variant="subtitle1">
-                          Forget Password ?
-                      </Typography>
+                      <TextField type="password" id="outlined-basic" label="Password" variant="outlined" fullWidth={true} margin="dense" size="small" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </CardContent>
                   <CardActions>
                       <Button color="primary" fullWidth={true} variant="contained" onClick={handleLogin} disabled={loading}>

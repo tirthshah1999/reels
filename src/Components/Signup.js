@@ -116,6 +116,7 @@ export default function Signup() {
               <TextField
                 id="outlined-basic"
                 label="Password"
+                type="password"
                 variant="outlined"
                 fullWidth={true}
                 margin="dense"
